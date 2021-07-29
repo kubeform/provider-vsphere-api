@@ -1,0 +1,566 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/name: vsphere.kubeform.com
+    app.kubernetes.io/part-of: kubeform.com
+  name: portgroups.distributed.vsphere.kubeform.com
+spec:
+  group: distributed.vsphere.kubeform.com
+  names:
+    kind: PortGroup
+    listKind: PortGroupList
+    plural: portgroups
+    singular: portgroup
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Phase
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              providerRef:
+                description: LocalObjectReference contains enough information to let
+                  you locate the referenced object inside the same namespace.
+                properties:
+                  name:
+                    description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                      TODO: Add other useful fields. apiVersion, kind, uid?'
+                    type: string
+                type: object
+              resource:
+                properties:
+                  activeUplinks:
+                    description: List of active uplinks used for load balancing, matching
+                      the names of the uplinks assigned in the DVS.
+                    items:
+                      type: string
+                    type: array
+                  allowForgedTransmits:
+                    description: Controls whether or not the virtual network adapter
+                      is allowed to send network traffic with a different MAC address
+                      than that of its own.
+                    type: boolean
+                  allowMACChanges:
+                    description: Controls whether or not the Media Access Control
+                      (MAC) address can be changed.
+                    type: boolean
+                  allowPromiscuous:
+                    description: Enable promiscuous mode on the network. This flag
+                      indicates whether or not all traffic is seen on a given port.
+                    type: boolean
+                  autoExpand:
+                    description: Auto-expands the port group beyond the port count
+                      configured in number_of_ports when necessary.
+                    type: boolean
+                  blockAllPorts:
+                    description: Indicates whether to block all ports by default.
+                    type: boolean
+                  blockOverrideAllowed:
+                    description: Allow the blocked setting of an individual port to
+                      override the setting in the portgroup.
+                    type: boolean
+                  checkBeacon:
+                    description: Enable beacon probing on the ports this policy applies
+                      to.
+                    type: boolean
+                  configVersion:
+                    description: Version string of the configuration that this spec
+                      is trying to change.
+                    type: string
+                  customAttributes:
+                    additionalProperties:
+                      type: string
+                    description: A list of custom attributes to set on this resource.
+                    type: object
+                  description:
+                    description: The description of the portgroup.
+                    type: string
+                  directpathGen2Allowed:
+                    description: Allow VMDirectPath Gen2 on the ports this policy
+                      applies to.
+                    type: boolean
+                  distributedVirtualSwitchUUID:
+                    description: The UUID of the DVS to attach this port group to.
+                    type: string
+                  egressShapingAverageBandwidth:
+                    description: The average egress bandwidth in bits per second if
+                      egress shaping is enabled on the port.
+                    format: int64
+                    type: integer
+                  egressShapingBurstSize:
+                    description: The maximum egress burst size allowed in bytes if
+                      egress shaping is enabled on the port.
+                    format: int64
+                    type: integer
+                  egressShapingEnabled:
+                    description: True if the traffic shaper is enabled for egress
+                      traffic on the port.
+                    type: boolean
+                  egressShapingPeakBandwidth:
+                    description: The peak egress bandwidth during bursts in bits per
+                      second if egress traffic shaping is enabled on the port.
+                    format: int64
+                    type: integer
+                  failback:
+                    description: If true, the teaming policy will re-activate failed
+                      interfaces higher in precedence when they come back up.
+                    type: boolean
+                  id:
+                    type: string
+                  ingressShapingAverageBandwidth:
+                    description: The average ingress bandwidth in bits per second
+                      if ingress shaping is enabled on the port.
+                    format: int64
+                    type: integer
+                  ingressShapingBurstSize:
+                    description: The maximum ingress burst size allowed in bytes if
+                      ingress shaping is enabled on the port.
+                    format: int64
+                    type: integer
+                  ingressShapingEnabled:
+                    description: True if the traffic shaper is enabled for ingress
+                      traffic on the port.
+                    type: boolean
+                  ingressShapingPeakBandwidth:
+                    description: The peak ingress bandwidth during bursts in bits
+                      per second if ingress traffic shaping is enabled on the port.
+                    format: int64
+                    type: integer
+                  key:
+                    description: The generated UUID of the portgroup.
+                    type: string
+                  lacpEnabled:
+                    description: Whether or not to enable LACP on all uplink ports.
+                    type: boolean
+                  lacpMode:
+                    description: The uplink LACP mode to use. Can be one of active
+                      or passive.
+                    type: string
+                  livePortMovingAllowed:
+                    description: Allow a live port to be moved in and out of the portgroup.
+                    type: boolean
+                  name:
+                    description: The name of the portgroup.
+                    type: string
+                  netflowEnabled:
+                    description: Indicates whether to enable netflow on all ports.
+                    type: boolean
+                  netflowOverrideAllowed:
+                    description: Allow the enabling or disabling of Netflow on a port,
+                      contrary to the policy in the portgroup.
+                    type: boolean
+                  networkResourcePoolKey:
+                    description: The key of a network resource pool to associate with
+                      this portgroup.
+                    type: string
+                  networkResourcePoolOverrideAllowed:
+                    description: Allow the network resource pool of an individual
+                      port to override the setting in the portgroup.
+                    type: boolean
+                  notifySwitches:
+                    description: If true, the teaming policy will notify the broadcast
+                      network of a NIC failover, triggering cache updates.
+                    type: boolean
+                  numberOfPorts:
+                    description: The number of ports in this portgroup. The DVS will
+                      expand and shrink by modifying this setting.
+                    format: int64
+                    type: integer
+                  portConfigResetAtDisconnect:
+                    description: Reset the setting of any ports in this portgroup
+                      back to the default setting when the port disconnects.
+                    type: boolean
+                  portNameFormat:
+                    description: A template string to use when creating ports in the
+                      portgroup.
+                    type: string
+                  portPrivateSecondaryVLANID:
+                    description: The secondary VLAN ID for this port.
+                    format: int64
+                    type: integer
+                  securityPolicyOverrideAllowed:
+                    description: Allow security policy settings on a port to override
+                      those on the portgroup.
+                    type: boolean
+                  shapingOverrideAllowed:
+                    description: Allow the traffic shaping policies of an individual
+                      port to override the settings in the portgroup.
+                    type: boolean
+                  standbyUplinks:
+                    description: List of standby uplinks used for load balancing,
+                      matching the names of the uplinks assigned in the DVS.
+                    items:
+                      type: string
+                    type: array
+                  tags:
+                    description: A list of tag IDs to apply to this object.
+                    items:
+                      type: string
+                    type: array
+                  teamingPolicy:
+                    description: The network adapter teaming policy. Can be one of
+                      loadbalance_ip, loadbalance_srcmac, loadbalance_srcid, failover_explicit,
+                      or loadbalance_loadbased.
+                    type: string
+                  trafficFilterOverrideAllowed:
+                    description: Allow any filter policies set on the individual port
+                      to override those in the portgroup.
+                    type: boolean
+                  txUplink:
+                    description: If true, a copy of packets sent to the switch will
+                      always be forwarded to an uplink in addition to the regular
+                      packet forwarded done by the switch.
+                    type: boolean
+                  type:
+                    description: The type of portgroup. Can be one of earlyBinding
+                      (static) or ephemeral.
+                    type: string
+                  uplinkTeamingOverrideAllowed:
+                    description: Allow the uplink teaming policies on a port to override
+                      those on the portgroup.
+                    type: boolean
+                  vlanID:
+                    description: The VLAN ID for single VLAN mode. 0 denotes no VLAN.
+                    format: int64
+                    type: integer
+                  vlanOverrideAllowed:
+                    description: Allow the VLAN configuration on a port to override
+                      those on the portgroup.
+                    type: boolean
+                  vlanRange:
+                    description: The VLAN ID for single VLAN mode. 0 denotes no VLAN.
+                    items:
+                      properties:
+                        maxVLAN:
+                          description: The minimum VLAN to use in the range.
+                          format: int64
+                          type: integer
+                        minVLAN:
+                          description: The minimum VLAN to use in the range.
+                          format: int64
+                          type: integer
+                      required:
+                      - maxVLAN
+                      - minVLAN
+                      type: object
+                    type: array
+                required:
+                - distributedVirtualSwitchUUID
+                - name
+                type: object
+              state:
+                properties:
+                  activeUplinks:
+                    description: List of active uplinks used for load balancing, matching
+                      the names of the uplinks assigned in the DVS.
+                    items:
+                      type: string
+                    type: array
+                  allowForgedTransmits:
+                    description: Controls whether or not the virtual network adapter
+                      is allowed to send network traffic with a different MAC address
+                      than that of its own.
+                    type: boolean
+                  allowMACChanges:
+                    description: Controls whether or not the Media Access Control
+                      (MAC) address can be changed.
+                    type: boolean
+                  allowPromiscuous:
+                    description: Enable promiscuous mode on the network. This flag
+                      indicates whether or not all traffic is seen on a given port.
+                    type: boolean
+                  autoExpand:
+                    description: Auto-expands the port group beyond the port count
+                      configured in number_of_ports when necessary.
+                    type: boolean
+                  blockAllPorts:
+                    description: Indicates whether to block all ports by default.
+                    type: boolean
+                  blockOverrideAllowed:
+                    description: Allow the blocked setting of an individual port to
+                      override the setting in the portgroup.
+                    type: boolean
+                  checkBeacon:
+                    description: Enable beacon probing on the ports this policy applies
+                      to.
+                    type: boolean
+                  configVersion:
+                    description: Version string of the configuration that this spec
+                      is trying to change.
+                    type: string
+                  customAttributes:
+                    additionalProperties:
+                      type: string
+                    description: A list of custom attributes to set on this resource.
+                    type: object
+                  description:
+                    description: The description of the portgroup.
+                    type: string
+                  directpathGen2Allowed:
+                    description: Allow VMDirectPath Gen2 on the ports this policy
+                      applies to.
+                    type: boolean
+                  distributedVirtualSwitchUUID:
+                    description: The UUID of the DVS to attach this port group to.
+                    type: string
+                  egressShapingAverageBandwidth:
+                    description: The average egress bandwidth in bits per second if
+                      egress shaping is enabled on the port.
+                    format: int64
+                    type: integer
+                  egressShapingBurstSize:
+                    description: The maximum egress burst size allowed in bytes if
+                      egress shaping is enabled on the port.
+                    format: int64
+                    type: integer
+                  egressShapingEnabled:
+                    description: True if the traffic shaper is enabled for egress
+                      traffic on the port.
+                    type: boolean
+                  egressShapingPeakBandwidth:
+                    description: The peak egress bandwidth during bursts in bits per
+                      second if egress traffic shaping is enabled on the port.
+                    format: int64
+                    type: integer
+                  failback:
+                    description: If true, the teaming policy will re-activate failed
+                      interfaces higher in precedence when they come back up.
+                    type: boolean
+                  id:
+                    type: string
+                  ingressShapingAverageBandwidth:
+                    description: The average ingress bandwidth in bits per second
+                      if ingress shaping is enabled on the port.
+                    format: int64
+                    type: integer
+                  ingressShapingBurstSize:
+                    description: The maximum ingress burst size allowed in bytes if
+                      ingress shaping is enabled on the port.
+                    format: int64
+                    type: integer
+                  ingressShapingEnabled:
+                    description: True if the traffic shaper is enabled for ingress
+                      traffic on the port.
+                    type: boolean
+                  ingressShapingPeakBandwidth:
+                    description: The peak ingress bandwidth during bursts in bits
+                      per second if ingress traffic shaping is enabled on the port.
+                    format: int64
+                    type: integer
+                  key:
+                    description: The generated UUID of the portgroup.
+                    type: string
+                  lacpEnabled:
+                    description: Whether or not to enable LACP on all uplink ports.
+                    type: boolean
+                  lacpMode:
+                    description: The uplink LACP mode to use. Can be one of active
+                      or passive.
+                    type: string
+                  livePortMovingAllowed:
+                    description: Allow a live port to be moved in and out of the portgroup.
+                    type: boolean
+                  name:
+                    description: The name of the portgroup.
+                    type: string
+                  netflowEnabled:
+                    description: Indicates whether to enable netflow on all ports.
+                    type: boolean
+                  netflowOverrideAllowed:
+                    description: Allow the enabling or disabling of Netflow on a port,
+                      contrary to the policy in the portgroup.
+                    type: boolean
+                  networkResourcePoolKey:
+                    description: The key of a network resource pool to associate with
+                      this portgroup.
+                    type: string
+                  networkResourcePoolOverrideAllowed:
+                    description: Allow the network resource pool of an individual
+                      port to override the setting in the portgroup.
+                    type: boolean
+                  notifySwitches:
+                    description: If true, the teaming policy will notify the broadcast
+                      network of a NIC failover, triggering cache updates.
+                    type: boolean
+                  numberOfPorts:
+                    description: The number of ports in this portgroup. The DVS will
+                      expand and shrink by modifying this setting.
+                    format: int64
+                    type: integer
+                  portConfigResetAtDisconnect:
+                    description: Reset the setting of any ports in this portgroup
+                      back to the default setting when the port disconnects.
+                    type: boolean
+                  portNameFormat:
+                    description: A template string to use when creating ports in the
+                      portgroup.
+                    type: string
+                  portPrivateSecondaryVLANID:
+                    description: The secondary VLAN ID for this port.
+                    format: int64
+                    type: integer
+                  securityPolicyOverrideAllowed:
+                    description: Allow security policy settings on a port to override
+                      those on the portgroup.
+                    type: boolean
+                  shapingOverrideAllowed:
+                    description: Allow the traffic shaping policies of an individual
+                      port to override the settings in the portgroup.
+                    type: boolean
+                  standbyUplinks:
+                    description: List of standby uplinks used for load balancing,
+                      matching the names of the uplinks assigned in the DVS.
+                    items:
+                      type: string
+                    type: array
+                  tags:
+                    description: A list of tag IDs to apply to this object.
+                    items:
+                      type: string
+                    type: array
+                  teamingPolicy:
+                    description: The network adapter teaming policy. Can be one of
+                      loadbalance_ip, loadbalance_srcmac, loadbalance_srcid, failover_explicit,
+                      or loadbalance_loadbased.
+                    type: string
+                  trafficFilterOverrideAllowed:
+                    description: Allow any filter policies set on the individual port
+                      to override those in the portgroup.
+                    type: boolean
+                  txUplink:
+                    description: If true, a copy of packets sent to the switch will
+                      always be forwarded to an uplink in addition to the regular
+                      packet forwarded done by the switch.
+                    type: boolean
+                  type:
+                    description: The type of portgroup. Can be one of earlyBinding
+                      (static) or ephemeral.
+                    type: string
+                  uplinkTeamingOverrideAllowed:
+                    description: Allow the uplink teaming policies on a port to override
+                      those on the portgroup.
+                    type: boolean
+                  vlanID:
+                    description: The VLAN ID for single VLAN mode. 0 denotes no VLAN.
+                    format: int64
+                    type: integer
+                  vlanOverrideAllowed:
+                    description: Allow the VLAN configuration on a port to override
+                      those on the portgroup.
+                    type: boolean
+                  vlanRange:
+                    description: The VLAN ID for single VLAN mode. 0 denotes no VLAN.
+                    items:
+                      properties:
+                        maxVLAN:
+                          description: The minimum VLAN to use in the range.
+                          format: int64
+                          type: integer
+                        minVLAN:
+                          description: The minimum VLAN to use in the range.
+                          format: int64
+                          type: integer
+                      required:
+                      - maxVLAN
+                      - minVLAN
+                      type: object
+                    type: array
+                required:
+                - distributedVirtualSwitchUUID
+                - name
+                type: object
+              terminationPolicy:
+                enum:
+                - Delete
+                - DoNotTerminate
+                type: string
+              updatePolicy:
+                enum:
+                - Destroy
+                - DoNotDestroy
+                type: string
+            required:
+            - providerRef
+            - resource
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      description: Last time the condition transitioned from one status
+                        to another. This should be when the underlying condition changed.  If
+                        that is not known, then using the time when the API field
+                        changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A human readable message indicating details about
+                        the transition. This field may be empty.
+                      type: string
+                    observedGeneration:
+                      description: If set, this represents the .metadata.generation
+                        that the condition was set based upon. For instance, if .metadata.generation
+                        is currently 12, but the .status.condition[x].observedGeneration
+                        is 9, the condition is out of date with respect to the current
+                        state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: The reason for the condition's last transition
+                        in CamelCase. The specific API may choose whether or not this
+                        field is considered a guaranteed API. This field may not be
+                        empty.
+                      type: string
+                    status:
+                      description: Status of the condition, one of True, False, Unknown.
+                      type: string
+                    type:
+                      description: Type of condition in CamelCase or in foo.example.com/CamelCase.
+                        Many .condition.type values are consistent across resources
+                        like Available, but because arbitrary conditions can be useful
+                        (see .node.status.conditions), the ability to deconflict is
+                        important.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                description: Resource generation, which is updated on mutation by
+                  the API Server.
+                format: int64
+                type: integer
+              phase:
+                description: Status defines the set of statuses a resource can have.
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
