@@ -1,0 +1,298 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/name: vsphere.kubeform.com
+    app.kubernetes.io/part-of: kubeform.com
+  name: vmoverrides.ha.vsphere.kubeform.com
+spec:
+  group: ha.vsphere.kubeform.com
+  names:
+    kind: VmOverride
+    listKind: VmOverrideList
+    plural: vmoverrides
+    singular: vmoverride
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.phase
+      name: Phase
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              providerRef:
+                description: LocalObjectReference contains enough information to let
+                  you locate the referenced object inside the same namespace.
+                properties:
+                  name:
+                    description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                      TODO: Add other useful fields. apiVersion, kind, uid?'
+                    type: string
+                type: object
+              resource:
+                properties:
+                  computeClusterID:
+                    description: The managed object ID of the cluster.
+                    type: string
+                  haDatastoreApdRecoveryAction:
+                    description: Controls the action to take on this virtual machine
+                      if an APD status on an affected datastore clears in the middle
+                      of an APD event. Can be one of useClusterDefault, none or reset.
+                    type: string
+                  haDatastoreApdResponse:
+                    description: Controls the action to take on this virtual machine
+                      when the cluster has detected loss to all paths to a relevant
+                      datastore. Can be one of clusterDefault, disabled, warning,
+                      restartConservative, or restartAggressive.
+                    type: string
+                  haDatastoreApdResponseDelay:
+                    description: Controls the delay in minutes to wait after an APD
+                      timeout event to execute the response action defined in ha_datastore_apd_response.
+                      Specify -1 to use the cluster setting.
+                    format: int64
+                    type: integer
+                  haDatastorePdlResponse:
+                    description: Controls the action to take on this virtual machine
+                      when the cluster has detected a permanent device loss to a relevant
+                      datastore. Can be one of clusterDefault, disabled, warning,
+                      or restartAggressive.
+                    type: string
+                  haHostIsolationResponse:
+                    description: The action to take on this virtual machine when a
+                      host is isolated from the rest of the cluster. Can be one of
+                      clusterIsolationResponse, none, powerOff, or shutdown.
+                    type: string
+                  haVmFailureInterval:
+                    description: If a heartbeat from this virtual machine is not received
+                      within this configured interval, the virtual machine is marked
+                      as failed. The value is in seconds.
+                    format: int64
+                    type: integer
+                  haVmMaximumFailureWindow:
+                    description: The length of the reset window in which ha_vm_maximum_resets
+                      can operate. When this window expires, no more resets are attempted
+                      regardless of the setting configured in ha_vm_maximum_resets.
+                      -1 means no window, meaning an unlimited reset time is allotted.
+                    format: int64
+                    type: integer
+                  haVmMaximumResets:
+                    description: The maximum number of resets that HA will perform
+                      to this virtual machine when responding to a failure event.
+                    format: int64
+                    type: integer
+                  haVmMinimumUptime:
+                    description: The time, in seconds, that HA waits after powering
+                      on this virtual machine before monitoring for heartbeats.
+                    format: int64
+                    type: integer
+                  haVmMonitoring:
+                    description: The type of virtual machine monitoring to use for
+                      this virtual machine. Can be one of vmMonitoringDisabled, vmMonitoringOnly,
+                      or vmAndAppMonitoring.
+                    type: string
+                  haVmMonitoringUseClusterDefaults:
+                    description: Determines whether or not the cluster's default settings
+                      or the VM override settings specified in this resource are used
+                      for virtual machine monitoring. The default is true (use cluster
+                      defaults) - set to false to have overrides take effect.
+                    type: boolean
+                  haVmRestartPriority:
+                    description: The restart priority for this virtual machine when
+                      vSphere detects a host failure. Can be one of clusterRestartPriority,
+                      lowest, low, medium, high, or highest.
+                    type: string
+                  haVmRestartTimeout:
+                    description: The maximum time, in seconds, that vSphere HA will
+                      wait for the virtual machine to be ready. Use -1 to use the
+                      cluster default.
+                    format: int64
+                    type: integer
+                  id:
+                    type: string
+                  virtualMachineID:
+                    description: The managed object ID of the virtual machine.
+                    type: string
+                required:
+                - computeClusterID
+                - virtualMachineID
+                type: object
+              state:
+                properties:
+                  computeClusterID:
+                    description: The managed object ID of the cluster.
+                    type: string
+                  haDatastoreApdRecoveryAction:
+                    description: Controls the action to take on this virtual machine
+                      if an APD status on an affected datastore clears in the middle
+                      of an APD event. Can be one of useClusterDefault, none or reset.
+                    type: string
+                  haDatastoreApdResponse:
+                    description: Controls the action to take on this virtual machine
+                      when the cluster has detected loss to all paths to a relevant
+                      datastore. Can be one of clusterDefault, disabled, warning,
+                      restartConservative, or restartAggressive.
+                    type: string
+                  haDatastoreApdResponseDelay:
+                    description: Controls the delay in minutes to wait after an APD
+                      timeout event to execute the response action defined in ha_datastore_apd_response.
+                      Specify -1 to use the cluster setting.
+                    format: int64
+                    type: integer
+                  haDatastorePdlResponse:
+                    description: Controls the action to take on this virtual machine
+                      when the cluster has detected a permanent device loss to a relevant
+                      datastore. Can be one of clusterDefault, disabled, warning,
+                      or restartAggressive.
+                    type: string
+                  haHostIsolationResponse:
+                    description: The action to take on this virtual machine when a
+                      host is isolated from the rest of the cluster. Can be one of
+                      clusterIsolationResponse, none, powerOff, or shutdown.
+                    type: string
+                  haVmFailureInterval:
+                    description: If a heartbeat from this virtual machine is not received
+                      within this configured interval, the virtual machine is marked
+                      as failed. The value is in seconds.
+                    format: int64
+                    type: integer
+                  haVmMaximumFailureWindow:
+                    description: The length of the reset window in which ha_vm_maximum_resets
+                      can operate. When this window expires, no more resets are attempted
+                      regardless of the setting configured in ha_vm_maximum_resets.
+                      -1 means no window, meaning an unlimited reset time is allotted.
+                    format: int64
+                    type: integer
+                  haVmMaximumResets:
+                    description: The maximum number of resets that HA will perform
+                      to this virtual machine when responding to a failure event.
+                    format: int64
+                    type: integer
+                  haVmMinimumUptime:
+                    description: The time, in seconds, that HA waits after powering
+                      on this virtual machine before monitoring for heartbeats.
+                    format: int64
+                    type: integer
+                  haVmMonitoring:
+                    description: The type of virtual machine monitoring to use for
+                      this virtual machine. Can be one of vmMonitoringDisabled, vmMonitoringOnly,
+                      or vmAndAppMonitoring.
+                    type: string
+                  haVmMonitoringUseClusterDefaults:
+                    description: Determines whether or not the cluster's default settings
+                      or the VM override settings specified in this resource are used
+                      for virtual machine monitoring. The default is true (use cluster
+                      defaults) - set to false to have overrides take effect.
+                    type: boolean
+                  haVmRestartPriority:
+                    description: The restart priority for this virtual machine when
+                      vSphere detects a host failure. Can be one of clusterRestartPriority,
+                      lowest, low, medium, high, or highest.
+                    type: string
+                  haVmRestartTimeout:
+                    description: The maximum time, in seconds, that vSphere HA will
+                      wait for the virtual machine to be ready. Use -1 to use the
+                      cluster default.
+                    format: int64
+                    type: integer
+                  id:
+                    type: string
+                  virtualMachineID:
+                    description: The managed object ID of the virtual machine.
+                    type: string
+                required:
+                - computeClusterID
+                - virtualMachineID
+                type: object
+              terminationPolicy:
+                enum:
+                - Delete
+                - DoNotTerminate
+                type: string
+              updatePolicy:
+                enum:
+                - Destroy
+                - DoNotDestroy
+                type: string
+            required:
+            - providerRef
+            - resource
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      description: Last time the condition transitioned from one status
+                        to another. This should be when the underlying condition changed.  If
+                        that is not known, then using the time when the API field
+                        changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A human readable message indicating details about
+                        the transition. This field may be empty.
+                      type: string
+                    observedGeneration:
+                      description: If set, this represents the .metadata.generation
+                        that the condition was set based upon. For instance, if .metadata.generation
+                        is currently 12, but the .status.condition[x].observedGeneration
+                        is 9, the condition is out of date with respect to the current
+                        state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: The reason for the condition's last transition
+                        in CamelCase. The specific API may choose whether or not this
+                        field is considered a guaranteed API. This field may not be
+                        empty.
+                      type: string
+                    status:
+                      description: Status of the condition, one of True, False, Unknown.
+                      type: string
+                    type:
+                      description: Type of condition in CamelCase or in foo.example.com/CamelCase.
+                        Many .condition.type values are consistent across resources
+                        like Available, but because arbitrary conditions can be useful
+                        (see .node.status.conditions), the ability to deconflict is
+                        important.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              observedGeneration:
+                description: Resource generation, which is updated on mutation by
+                  the API Server.
+                format: int64
+                type: integer
+              phase:
+                description: Status defines the set of statuses a resource can have.
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
