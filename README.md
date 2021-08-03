@@ -3,7 +3,7 @@
 
 # provider-vsphere-api
 
-Kubeform CRDs for [Terraform Vsphere Provider](https://github.com/vsphere/terraform-provider-vsphere)
+Kubeform CRDs for [Terraform VMware vSphere Provider](https://github.com/hashicorp/terraform-provider-vsphere)
 
 ## Installation
 
