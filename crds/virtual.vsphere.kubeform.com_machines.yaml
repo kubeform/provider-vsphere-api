@@ -59,7 +59,7 @@ spec:
                 properties:
                   alternateGuestName:
                     description: The guest name for the operating system when guest_id
-                      is other or other-64.
+                      is otherGuest or otherGuest64.
                     type: string
                   annotation:
                     description: User-provided description of the virtual machine.
@@ -464,7 +464,7 @@ spec:
                     type: object
                   firmware:
                     description: The firmware interface to use on the virtual machine.
-                      Can be one of bios or EFI.
+                      Can be one of bios or efi.
                     type: string
                   folder:
                     description: The name of the folder to locate the virtual machine
@@ -557,7 +557,7 @@ spec:
                     format: int64
                     type: integer
                   moid:
-                    description: The machine object ID from VMWare
+                    description: The machine object ID from VMware vSphere.
                     type: string
                   name:
                     description: The name of this virtual machine.
@@ -698,24 +698,24 @@ spec:
                       in.
                     type: string
                   runToolsScriptsAfterPowerOn:
-                    description: Enable the execution of post-power-on scripts when
-                      VMware tools is installed.
+                    description: Enable the run of scripts after virtual machine power-on
+                      when VMware Tools is installed.
                     type: boolean
                   runToolsScriptsAfterResume:
-                    description: Enable the execution of post-resume scripts when
-                      VMware tools is installed.
+                    description: Enable the run of scripts after virtual machine resume
+                      when when VMware Tools is installed.
                     type: boolean
                   runToolsScriptsBeforeGuestReboot:
-                    description: Enable the execution of pre-reboot scripts when VMware
-                      tools is installed.
+                    description: Enable the run of scripts before guest operating
+                      system reboot when VMware Tools is installed.
                     type: boolean
                   runToolsScriptsBeforeGuestShutdown:
-                    description: Enable the execution of pre-shutdown scripts when
-                      VMware tools is installed.
+                    description: Enable the run of scripts before guest operating
+                      system shutdown when VMware Tools is installed.
                     type: boolean
                   runToolsScriptsBeforeGuestStandby:
-                    description: Enable the execution of pre-standby scripts when
-                      VMware tools is installed.
+                    description: Enable the run of scripts before guest operating
+                      system standby when VMware Tools is installed.
                     type: boolean
                   sataControllerCount:
                     description: The number of SATA controllers that Terraform manages
@@ -754,22 +754,25 @@ spec:
                     type: string
                   syncTimeWithHost:
                     description: Enable guest clock synchronization with the host.
-                      On vSphere 7 U1 and above, with only this setting the clock
-                      is synchronized on startup and resume so consider also setting
-                      `sync_time_with_host_periodically`. Requires VMware tools to
-                      be installed.
+                      On vSphere 7.0 U1 and above, with only this setting the clock
+                      is synchronized on startup and resume. Requires VMware Tools
+                      to be installed.
                     type: boolean
                   syncTimeWithHostPeriodically:
                     description: Enable periodic clock synchronization with the host.
-                      Supported only on vSphere 7 U1 and above. On older versions
+                      Supported only on vSphere 7.0 U1 and above. On prior versions
                       setting `sync_time_with_host` is enough for periodic synchronization.
-                      Requires VMware tools to be installed.
+                      Requires VMware Tools to be installed.
                     type: boolean
                   tags:
                     description: A list of tag IDs to apply to this object.
                     items:
                       type: string
                     type: array
+                  toolsUpgradePolicy:
+                    description: Set the upgrade policy for VMware Tools. Can be one
+                      of `manual` or `upgradeAtPowerCycle`.
+                    type: string
                   uuid:
                     description: The UUID of the virtual machine. Also exposed as
                       the ID of the resource.
@@ -796,7 +799,7 @@ spec:
                       is enabled for this virtual machine.
                     type: boolean
                   vmwareToolsStatus:
-                    description: The state of VMware tools in the guest. This will
+                    description: The state of VMware Tools in the guest. This will
                       determine the proper course of action for some device operations.
                     type: string
                   vmxPath:
@@ -843,7 +846,7 @@ spec:
                 properties:
                   alternateGuestName:
                     description: The guest name for the operating system when guest_id
-                      is other or other-64.
+                      is otherGuest or otherGuest64.
                     type: string
                   annotation:
                     description: User-provided description of the virtual machine.
@@ -1248,7 +1251,7 @@ spec:
                     type: object
                   firmware:
                     description: The firmware interface to use on the virtual machine.
-                      Can be one of bios or EFI.
+                      Can be one of bios or efi.
                     type: string
                   folder:
                     description: The name of the folder to locate the virtual machine
@@ -1341,7 +1344,7 @@ spec:
                     format: int64
                     type: integer
                   moid:
-                    description: The machine object ID from VMWare
+                    description: The machine object ID from VMware vSphere.
                     type: string
                   name:
                     description: The name of this virtual machine.
@@ -1482,24 +1485,24 @@ spec:
                       in.
                     type: string
                   runToolsScriptsAfterPowerOn:
-                    description: Enable the execution of post-power-on scripts when
-                      VMware tools is installed.
+                    description: Enable the run of scripts after virtual machine power-on
+                      when VMware Tools is installed.
                     type: boolean
                   runToolsScriptsAfterResume:
-                    description: Enable the execution of post-resume scripts when
-                      VMware tools is installed.
+                    description: Enable the run of scripts after virtual machine resume
+                      when when VMware Tools is installed.
                     type: boolean
                   runToolsScriptsBeforeGuestReboot:
-                    description: Enable the execution of pre-reboot scripts when VMware
-                      tools is installed.
+                    description: Enable the run of scripts before guest operating
+                      system reboot when VMware Tools is installed.
                     type: boolean
                   runToolsScriptsBeforeGuestShutdown:
-                    description: Enable the execution of pre-shutdown scripts when
-                      VMware tools is installed.
+                    description: Enable the run of scripts before guest operating
+                      system shutdown when VMware Tools is installed.
                     type: boolean
                   runToolsScriptsBeforeGuestStandby:
-                    description: Enable the execution of pre-standby scripts when
-                      VMware tools is installed.
+                    description: Enable the run of scripts before guest operating
+                      system standby when VMware Tools is installed.
                     type: boolean
                   sataControllerCount:
                     description: The number of SATA controllers that Terraform manages
@@ -1538,22 +1541,25 @@ spec:
                     type: string
                   syncTimeWithHost:
                     description: Enable guest clock synchronization with the host.
-                      On vSphere 7 U1 and above, with only this setting the clock
-                      is synchronized on startup and resume so consider also setting
-                      `sync_time_with_host_periodically`. Requires VMware tools to
-                      be installed.
+                      On vSphere 7.0 U1 and above, with only this setting the clock
+                      is synchronized on startup and resume. Requires VMware Tools
+                      to be installed.
                     type: boolean
                   syncTimeWithHostPeriodically:
                     description: Enable periodic clock synchronization with the host.
-                      Supported only on vSphere 7 U1 and above. On older versions
+                      Supported only on vSphere 7.0 U1 and above. On prior versions
                       setting `sync_time_with_host` is enough for periodic synchronization.
-                      Requires VMware tools to be installed.
+                      Requires VMware Tools to be installed.
                     type: boolean
                   tags:
                     description: A list of tag IDs to apply to this object.
                     items:
                       type: string
                     type: array
+                  toolsUpgradePolicy:
+                    description: Set the upgrade policy for VMware Tools. Can be one
+                      of `manual` or `upgradeAtPowerCycle`.
+                    type: string
                   uuid:
                     description: The UUID of the virtual machine. Also exposed as
                       the ID of the resource.
@@ -1580,7 +1586,7 @@ spec:
                       is enabled for this virtual machine.
                     type: boolean
                   vmwareToolsStatus:
-                    description: The state of VMware tools in the guest. This will
+                    description: The state of VMware Tools in the guest. This will
                       determine the proper course of action for some device operations.
                     type: string
                   vmxPath:

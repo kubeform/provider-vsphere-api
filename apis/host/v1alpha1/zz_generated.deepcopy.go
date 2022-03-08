@@ -174,6 +174,11 @@ func (in *HostSpecResource) DeepCopyInto(out *HostSpecResource) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Tags != nil {
+		in, out := &in.Tags, &out.Tags
+		*out = make([]string, len(*in))
+		copy(*out, *in)
+	}
 	if in.Thumbprint != nil {
 		in, out := &in.Thumbprint, &out.Thumbprint
 		*out = new(string)

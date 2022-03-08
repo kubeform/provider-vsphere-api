@@ -1410,6 +1410,11 @@ func (in *MachineSpecResource) DeepCopyInto(out *MachineSpecResource) {
 		*out = make([]string, len(*in))
 		copy(*out, *in)
 	}
+	if in.ToolsUpgradePolicy != nil {
+		in, out := &in.ToolsUpgradePolicy, &out.ToolsUpgradePolicy
+		*out = new(string)
+		**out = **in
+	}
 	if in.Uuid != nil {
 		in, out := &in.Uuid, &out.Uuid
 		*out = new(string)

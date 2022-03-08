@@ -89,7 +89,7 @@ func (r *VmOverride) ValidateUpdate(old runtime.Object) error {
 		return err
 	}
 
-	for key := range vmoverrideForceNewList {
+	for key, _ := range vmoverrideForceNewList {
 		keySplit := strings.Split(key, "/*")
 		length := len(keySplit)
 		checkIfAnyDif := false

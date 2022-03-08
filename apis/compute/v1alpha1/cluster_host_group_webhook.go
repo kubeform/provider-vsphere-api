@@ -89,7 +89,7 @@ func (r *ClusterHostGroup) ValidateUpdate(old runtime.Object) error {
 		return err
 	}
 
-	for key := range clusterhostgroupForceNewList {
+	for key, _ := range clusterhostgroupForceNewList {
 		keySplit := strings.Split(key, "/*")
 		length := len(keySplit)
 		checkIfAnyDif := false

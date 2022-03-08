@@ -144,7 +144,7 @@ type ClusterSpecResource struct {
 	// When ha_vm_component_protection is enabled, controls the action to take on virtual machines when the cluster has detected loss to all paths to a relevant datastore. Can be one of disabled, warning, restartConservative, or restartAggressive.
 	// +optional
 	HaDatastoreApdResponse *string `json:"haDatastoreApdResponse,omitempty" tf:"ha_datastore_apd_response"`
-	// When ha_vm_component_protection is enabled, controls the delay in minutes to wait after an APD timeout event to execute the response action defined in ha_datastore_apd_response.
+	// When ha_vm_component_protection is enabled, controls the delay in seconds to wait after an APD timeout event to execute the response action defined in ha_datastore_apd_response.
 	// +optional
 	HaDatastoreApdResponseDelay *int64 `json:"haDatastoreApdResponseDelay,omitempty" tf:"ha_datastore_apd_response_delay"`
 	// When ha_vm_component_protection is enabled, controls the action to take on virtual machines when the cluster has detected a permanent device loss to a relevant datastore. Can be one of disabled, warning, or restartAggressive.

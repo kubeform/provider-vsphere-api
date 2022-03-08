@@ -202,14 +202,12 @@ spec:
                             proxy switch.
                           items:
                             type: string
-                          minItems: 1
                           type: array
                         hostSystemID:
                           description: The managed object ID of the host this specification
                             applies to.
                           type: string
                       required:
-                      - devices
                       - hostSystemID
                       type: object
                     type: array
@@ -455,7 +453,7 @@ spec:
                     type: string
                   version:
                     description: The version of this virtual switch. Allowed versions
-                      are 7.0.0, 6.5.0, 6.0.0, 5.5.0, 5.1.0, and 5.0.0.
+                      are 7.0.3, 7.0.0, 6.6.0, 6.5.0, 6.0.0, 5.5.0, 5.1.0, and 5.0.0.
                     type: string
                   virtualmachineMaximumMbit:
                     description: The maximum allowed usage for the virtualMachine
@@ -686,14 +684,12 @@ spec:
                             proxy switch.
                           items:
                             type: string
-                          minItems: 1
                           type: array
                         hostSystemID:
                           description: The managed object ID of the host this specification
                             applies to.
                           type: string
                       required:
-                      - devices
                       - hostSystemID
                       type: object
                     type: array
@@ -939,7 +935,7 @@ spec:
                     type: string
                   version:
                     description: The version of this virtual switch. Allowed versions
-                      are 7.0.0, 6.5.0, 6.0.0, 5.5.0, 5.1.0, and 5.0.0.
+                      are 7.0.3, 7.0.0, 6.6.0, 6.5.0, 6.0.0, 5.5.0, 5.1.0, and 5.0.0.
                     type: string
                   virtualmachineMaximumMbit:
                     description: The maximum allowed usage for the virtualMachine

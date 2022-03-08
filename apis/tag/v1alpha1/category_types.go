@@ -58,7 +58,7 @@ type CategorySpec struct {
 type CategorySpecResource struct {
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Object types to which this category's tags can be attached.
+	// Object types to which this category's tags can be attached. Valid types include: Folder, ClusterComputeResource, Datacenter, Datastore, StoragePod, DistributedVirtualPortgroup, DistributedVirtualSwitch, VmwareDistributedVirtualSwitch, HostSystem, com.vmware.content.Library, com.vmware.content.library.Item, HostNetwork, Network, OpaqueNetwork, ResourcePool, VirtualApp, VirtualMachine.
 	AssociableTypes []string `json:"associableTypes" tf:"associable_types"`
 	// The associated cardinality of the category. Can be one of SINGLE (object can only be assigned one tag in this category) or MULTIPLE (object can be assigned multiple tags in this category).
 	Cardinality *string `json:"cardinality" tf:"cardinality"`

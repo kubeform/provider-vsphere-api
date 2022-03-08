@@ -88,6 +88,9 @@ type HostSpecResource struct {
 	Maintenance *bool `json:"maintenance,omitempty" tf:"maintenance"`
 	// Password of the administration account of the host.
 	Password *string `json:"-" sensitive:"true" tf:"password"`
+	// A list of tag IDs to apply to this object.
+	// +optional
+	Tags []string `json:"tags,omitempty" tf:"tags"`
 	// Host's certificate SHA-1 thumbprint. If not set then the CA that signed the host's certificate must be trusted.
 	// +optional
 	Thumbprint *string `json:"thumbprint,omitempty" tf:"thumbprint"`

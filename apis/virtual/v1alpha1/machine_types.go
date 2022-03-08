@@ -339,7 +339,7 @@ type MachineSpec struct {
 type MachineSpecResource struct {
 	ID string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// The guest name for the operating system when guest_id is other or other-64.
+	// The guest name for the operating system when guest_id is otherGuest or otherGuest64.
 	// +optional
 	AlternateGuestName *string `json:"alternateGuestName,omitempty" tf:"alternate_guest_name"`
 	// User-provided description of the virtual machine.
@@ -418,7 +418,7 @@ type MachineSpecResource struct {
 	// Extra configuration data for this virtual machine. Can be used to supply advanced parameters not normally in configuration, such as instance metadata, or configuration data for OVF images.
 	// +optional
 	ExtraConfig *map[string]string `json:"extraConfig,omitempty" tf:"extra_config"`
-	// The firmware interface to use on the virtual machine. Can be one of bios or EFI.
+	// The firmware interface to use on the virtual machine. Can be one of bios or efi.
 	// +optional
 	Firmware *string `json:"firmware,omitempty" tf:"firmware"`
 	// The name of the folder to locate the virtual machine in.
@@ -475,7 +475,7 @@ type MachineSpecResource struct {
 	// The amount of time, in minutes, to wait for a vMotion operation to complete before failing.
 	// +optional
 	MigrateWaitTimeout *int64 `json:"migrateWaitTimeout,omitempty" tf:"migrate_wait_timeout"`
-	// The machine object ID from VMWare
+	// The machine object ID from VMware vSphere.
 	// +optional
 	Moid *string `json:"moid,omitempty" tf:"moid"`
 	// The name of this virtual machine.
@@ -510,19 +510,19 @@ type MachineSpecResource struct {
 	ReplaceTrigger *string `json:"replaceTrigger,omitempty" tf:"replace_trigger"`
 	// The ID of a resource pool to put the virtual machine in.
 	ResourcePoolID *string `json:"resourcePoolID" tf:"resource_pool_id"`
-	// Enable the execution of post-power-on scripts when VMware tools is installed.
+	// Enable the run of scripts after virtual machine power-on when VMware Tools is installed.
 	// +optional
 	RunToolsScriptsAfterPowerOn *bool `json:"runToolsScriptsAfterPowerOn,omitempty" tf:"run_tools_scripts_after_power_on"`
-	// Enable the execution of post-resume scripts when VMware tools is installed.
+	// Enable the run of scripts after virtual machine resume when when VMware Tools is installed.
 	// +optional
 	RunToolsScriptsAfterResume *bool `json:"runToolsScriptsAfterResume,omitempty" tf:"run_tools_scripts_after_resume"`
-	// Enable the execution of pre-reboot scripts when VMware tools is installed.
+	// Enable the run of scripts before guest operating system reboot when VMware Tools is installed.
 	// +optional
 	RunToolsScriptsBeforeGuestReboot *bool `json:"runToolsScriptsBeforeGuestReboot,omitempty" tf:"run_tools_scripts_before_guest_reboot"`
-	// Enable the execution of pre-shutdown scripts when VMware tools is installed.
+	// Enable the run of scripts before guest operating system shutdown when VMware Tools is installed.
 	// +optional
 	RunToolsScriptsBeforeGuestShutdown *bool `json:"runToolsScriptsBeforeGuestShutdown,omitempty" tf:"run_tools_scripts_before_guest_shutdown"`
-	// Enable the execution of pre-standby scripts when VMware tools is installed.
+	// Enable the run of scripts before guest operating system standby when VMware Tools is installed.
 	// +optional
 	RunToolsScriptsBeforeGuestStandby *bool `json:"runToolsScriptsBeforeGuestStandby,omitempty" tf:"run_tools_scripts_before_guest_standby"`
 	// The number of SATA controllers that Terraform manages on this virtual machine. This directly affects the amount of disks you can add to the virtual machine and the maximum disk unit number. Note that lowering this value does not remove controllers.
@@ -546,15 +546,18 @@ type MachineSpecResource struct {
 	// The swap file placement policy for this virtual machine. Can be one of inherit, hostLocal, or vmDirectory.
 	// +optional
 	SwapPlacementPolicy *string `json:"swapPlacementPolicy,omitempty" tf:"swap_placement_policy"`
-	// Enable guest clock synchronization with the host. On vSphere 7 U1 and above, with only this setting the clock is synchronized on startup and resume so consider also setting `sync_time_with_host_periodically`. Requires VMware tools to be installed.
+	// Enable guest clock synchronization with the host. On vSphere 7.0 U1 and above, with only this setting the clock is synchronized on startup and resume. Requires VMware Tools to be installed.
 	// +optional
 	SyncTimeWithHost *bool `json:"syncTimeWithHost,omitempty" tf:"sync_time_with_host"`
-	// Enable periodic clock synchronization with the host. Supported only on vSphere 7 U1 and above. On older versions setting `sync_time_with_host` is enough for periodic synchronization. Requires VMware tools to be installed.
+	// Enable periodic clock synchronization with the host. Supported only on vSphere 7.0 U1 and above. On prior versions setting `sync_time_with_host` is enough for periodic synchronization. Requires VMware Tools to be installed.
 	// +optional
 	SyncTimeWithHostPeriodically *bool `json:"syncTimeWithHostPeriodically,omitempty" tf:"sync_time_with_host_periodically"`
 	// A list of tag IDs to apply to this object.
 	// +optional
 	Tags []string `json:"tags,omitempty" tf:"tags"`
+	// Set the upgrade policy for VMware Tools. Can be one of `manual` or `upgradeAtPowerCycle`.
+	// +optional
+	ToolsUpgradePolicy *string `json:"toolsUpgradePolicy,omitempty" tf:"tools_upgrade_policy"`
 	// The UUID of the virtual machine. Also exposed as the ID of the resource.
 	// +optional
 	Uuid *string `json:"uuid,omitempty" tf:"uuid"`
@@ -567,7 +570,7 @@ type MachineSpecResource struct {
 	// Flag to specify if Virtualization-based security is enabled for this virtual machine.
 	// +optional
 	VbsEnabled *bool `json:"vbsEnabled,omitempty" tf:"vbs_enabled"`
-	// The state of VMware tools in the guest. This will determine the proper course of action for some device operations.
+	// The state of VMware Tools in the guest. This will determine the proper course of action for some device operations.
 	// +optional
 	VmwareToolsStatus *string `json:"vmwareToolsStatus,omitempty" tf:"vmware_tools_status"`
 	// The path of the virtual machine's configuration file in the VM's datastore.

@@ -91,6 +91,11 @@ spec:
                   maintenance:
                     description: Set the host's maintenance mode. Default is false
                     type: boolean
+                  tags:
+                    description: A list of tag IDs to apply to this object.
+                    items:
+                      type: string
+                    type: array
                   thumbprint:
                     description: Host's certificate SHA-1 thumbprint. If not set then
                       the CA that signed the host's certificate must be trusted.
@@ -147,6 +152,11 @@ spec:
                   maintenance:
                     description: Set the host's maintenance mode. Default is false
                     type: boolean
+                  tags:
+                    description: A list of tag IDs to apply to this object.
+                    items:
+                      type: string
+                    type: array
                   thumbprint:
                     description: Host's certificate SHA-1 thumbprint. If not set then
                       the CA that signed the host's certificate must be trusted.

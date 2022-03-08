@@ -43,8 +43,8 @@ type VirtualSwitch struct {
 
 type VirtualSwitchSpecHost struct {
 	// Name of the physical NIC to be added to the proxy switch.
-	// +kubebuilder:validation:MinItems=1
-	Devices []string `json:"devices" tf:"devices"`
+	// +optional
+	Devices []string `json:"devices,omitempty" tf:"devices"`
 	// The managed object ID of the host this specification applies to.
 	HostSystemID *string `json:"hostSystemID" tf:"host_system_id"`
 }
@@ -320,7 +320,7 @@ type VirtualSwitchSpecResource struct {
 	// The allocation level for the vdp traffic class. Can be one of high, low, normal, or custom.
 	// +optional
 	VdpShareLevel *string `json:"vdpShareLevel,omitempty" tf:"vdp_share_level"`
-	// The version of this virtual switch. Allowed versions are 7.0.0, 6.5.0, 6.0.0, 5.5.0, 5.1.0, and 5.0.0.
+	// The version of this virtual switch. Allowed versions are 7.0.3, 7.0.0, 6.6.0, 6.5.0, 6.0.0, 5.5.0, 5.1.0, and 5.0.0.
 	// +optional
 	Version *string `json:"version,omitempty" tf:"version"`
 	// The maximum allowed usage for the virtualMachine traffic class, in Mbits/sec.

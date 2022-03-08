@@ -88,7 +88,7 @@ func (r *ClusterVmAffinityRule) ValidateUpdate(old runtime.Object) error {
 		return err
 	}
 
-	for key := range clustervmaffinityruleForceNewList {
+	for key, _ := range clustervmaffinityruleForceNewList {
 		keySplit := strings.Split(key, "/*")
 		length := len(keySplit)
 		checkIfAnyDif := false
