@@ -88,7 +88,7 @@ func (r *ClusterVmDependencyRule) ValidateUpdate(old runtime.Object) error {
 		return err
 	}
 
-	for key := range clustervmdependencyruleForceNewList {
+	for key, _ := range clustervmdependencyruleForceNewList {
 		keySplit := strings.Split(key, "/*")
 		length := len(keySplit)
 		checkIfAnyDif := false

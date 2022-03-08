@@ -89,7 +89,7 @@ func (r *VirtualSwitch) ValidateUpdate(old runtime.Object) error {
 		return err
 	}
 
-	for key := range virtualswitchForceNewList {
+	for key, _ := range virtualswitchForceNewList {
 		keySplit := strings.Split(key, "/*")
 		length := len(keySplit)
 		checkIfAnyDif := false

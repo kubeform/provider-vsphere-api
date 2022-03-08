@@ -58,8 +58,13 @@ spec:
               resource:
                 properties:
                   associableTypes:
-                    description: Object types to which this category's tags can be
-                      attached.
+                    description: 'Object types to which this category''s tags can
+                      be attached. Valid types include: Folder, ClusterComputeResource,
+                      Datacenter, Datastore, StoragePod, DistributedVirtualPortgroup,
+                      DistributedVirtualSwitch, VmwareDistributedVirtualSwitch, HostSystem,
+                      com.vmware.content.Library, com.vmware.content.library.Item,
+                      HostNetwork, Network, OpaqueNetwork, ResourcePool, VirtualApp,
+                      VirtualMachine.'
                     items:
                       type: string
                     type: array
@@ -84,8 +89,13 @@ spec:
               state:
                 properties:
                   associableTypes:
-                    description: Object types to which this category's tags can be
-                      attached.
+                    description: 'Object types to which this category''s tags can
+                      be attached. Valid types include: Folder, ClusterComputeResource,
+                      Datacenter, Datastore, StoragePod, DistributedVirtualPortgroup,
+                      DistributedVirtualSwitch, VmwareDistributedVirtualSwitch, HostSystem,
+                      com.vmware.content.Library, com.vmware.content.library.Item,
+                      HostNetwork, Network, OpaqueNetwork, ResourcePool, VirtualApp,
+                      VirtualMachine.'
                     items:
                       type: string
                     type: array

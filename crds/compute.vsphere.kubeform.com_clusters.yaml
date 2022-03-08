@@ -203,7 +203,7 @@ spec:
                     type: string
                   haDatastoreApdResponseDelay:
                     description: When ha_vm_component_protection is enabled, controls
-                      the delay in minutes to wait after an APD timeout event to execute
+                      the delay in seconds to wait after an APD timeout event to execute
                       the response action defined in ha_datastore_apd_response.
                     format: int64
                     type: integer
@@ -518,7 +518,7 @@ spec:
                     type: string
                   haDatastoreApdResponseDelay:
                     description: When ha_vm_component_protection is enabled, controls
-                      the delay in minutes to wait after an APD timeout event to execute
+                      the delay in seconds to wait after an APD timeout event to execute
                       the response action defined in ha_datastore_apd_response.
                     format: int64
                     type: integer

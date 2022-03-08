@@ -93,7 +93,7 @@ func (r *LibraryItem) ValidateUpdate(old runtime.Object) error {
 		return err
 	}
 
-	for key := range libraryitemForceNewList {
+	for key, _ := range libraryitemForceNewList {
 		keySplit := strings.Split(key, "/*")
 		length := len(keySplit)
 		checkIfAnyDif := false
